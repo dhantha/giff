@@ -4,6 +4,7 @@
 <head>
 	<title>Giff</title>
 	<!-- need to link the jquery -->
+    
 	<meta name="viewport" content="width = device-width, initial-scale = 1">
 
   	<script src='http://code.jquery.com/jquery-3.1.0.js'></script>
@@ -14,11 +15,16 @@
 </head>
 
 <body>
-	<p> upload your images </p>
-	<form class="form" id="target">
-  		Select images: <input type="file" name="img" multiple>
-  		<input button id='searchBtn' type="submit">
-	</form>
+    <div id="main" align="center">
+        <p> upload your images </p>
+        <form id="uploadForm" enctype="multipart/form-data" action="/api/photo" method="post">
+            <input type="file" name="userPhoto"  multiple="multiple"/>
+            <input type="submit" value="Upload Image" name="submit">
+            <span id = "status"></span>
+        </form>
+    </div>
 </body>
 </html>
 
+
+   
