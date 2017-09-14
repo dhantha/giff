@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var formidable = require('formidable');
 var fs = require('file-system');
+var randomstring = require("randomstring");
 
 var app = express()
 
@@ -13,7 +14,8 @@ app.post('/api/photo', function(req, res){
     form.multiples = true;
     
     // need to create the dir dynamically
-    var pathToFolder = new Date().toISOString()
+    var pathToFolder = new Date().toISOString();
+    var gifName = randomstring.generate();
     
     fs.mkdirSync(pathToFolder,0777);
     
@@ -32,11 +34,14 @@ app.post('/api/photo', function(req, res){
     
     // create the giff
     var spawn = require("child_process").spawn;
-    var process = spawn('python',["./Giff.py", pathToFolder, pathToFolder]);
-                                  
+    var process = spawn('python',["./Giff.py", pathToFolder, gifName]);
+    // need a call back here to send the giff                              
                                   
     form.on('end', function() {
-        res.end('success');
+        //res.end('success');
+        var giffImagePath = path.join('./' + pathToFolder + '/' + gifName + '.gif')
+        var resolvedPath = path.resolve(giffImagePath);
+        res.sendFile(resolvedPath);
     });
 
     // parse the incoming request containing the form data
