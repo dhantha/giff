@@ -4,8 +4,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
-
-
 path = './' + sys.argv[1]
 name = sys.argv[2]
 files = os.listdir(path)

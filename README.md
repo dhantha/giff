@@ -1,4 +1,4 @@
-# giff
+to-d# giff
 Create gifs from images 
 
 # To do

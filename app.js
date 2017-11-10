@@ -4,6 +4,7 @@ var path = require('path');
 var formidable = require('formidable');
 var fs = require('file-system');
 var randomstring = require("randomstring");
+var PythonShell = require('python-shell');
 
 var app = express()
 
@@ -33,15 +34,34 @@ app.post('/api/photo', function(req, res){
     });
     
     // create the giff
-    var spawn = require("child_process").spawn;
-    var process = spawn('python',["./Giff.py", pathToFolder, gifName]);
-    // need a call back here to send the giff                              
+    //var spawn = require("child_process").spawn;
+    //var process = spawn('python',["./Giff.py", pathToFolder, gifName]);
+    // need a call back here to send the giff   
+
+    var options = {
+        mode: 'text',
+        pythonPath: '/home/dhantha/anaconda/envs/py36/bin/python',
+        pythonOptions: ['-u'],
+        scriptPath: './',
+        args: [pathToFolder, gifName]
+    };
+ 
+    PythonShell.run('Giff.py', options, function (err, results) {
+        if (err) throw err;
+        // results is an array consisting of messages collected during execution 
+        //console.log('results: %j', results);
+        var giffImagePath = path.join('./' + pathToFolder + '/' + gifName + '.gif')
+        var resolvedPath = path.resolve(giffImagePath);
+        //res.sendFile(resolvedPath);
+        res.end(resolvedPath);
+    });
+
                                   
     form.on('end', function() {
         //res.end('success');
-        var giffImagePath = path.join('./' + pathToFolder + '/' + gifName + '.gif')
-        var resolvedPath = path.resolve(giffImagePath);
-        res.sendFile(resolvedPath);
+        //var giffImagePath = path.join('./' + pathToFolder + '/' + gifName + '.gif')
+        //var resolvedPath = path.resolve(giffImagePath);
+        //res.sendFile(resolvedPath);
     });
 
     // parse the incoming request containing the form data
