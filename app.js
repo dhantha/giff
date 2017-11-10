@@ -1,5 +1,4 @@
 var express = require('express');
-//var multer = require('multer');
 var path = require('path');
 var formidable = require('formidable');
 var fs = require('file-system');
@@ -34,10 +33,6 @@ app.post('/api/photo', function(req, res){
     });
     
     // create the giff
-    //var spawn = require("child_process").spawn;
-    //var process = spawn('python',["./Giff.py", pathToFolder, gifName]);
-    // need a call back here to send the giff   
-
     var options = {
         mode: 'text',
         pythonPath: '/home/dhantha/anaconda/envs/py36/bin/python',
@@ -52,8 +47,11 @@ app.post('/api/photo', function(req, res){
         //console.log('results: %j', results);
         var giffImagePath = path.join('./' + pathToFolder + '/' + gifName + '.gif')
         var resolvedPath = path.resolve(giffImagePath);
+        var img = fs.readFileSync(resolvedPath);
+        res.writeHead(200, {'Content-Type': 'image/gif' });
+        res.end(img, 'binary');
         //res.sendFile(resolvedPath);
-        res.end(resolvedPath);
+        //res.sendFile(resolvedPath,{ 'Content-Type': 'image/gif' }, 200);
     });
 
                                   
