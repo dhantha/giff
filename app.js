@@ -5,10 +5,11 @@ var fs = require('file-system');
 var randomstring = require("randomstring");
 var PythonShell = require('python-shell');
 
-var app = express()
+var app = express();
 
-app.use(express.static('./'))
+app.use(express.static('./')); // index.html
 
+// API for uploading the Photos
 app.post('/api/photo', function(req, res){
     var form = new formidable.IncomingForm();
     form.multiples = true;
@@ -35,21 +36,24 @@ app.post('/api/photo', function(req, res){
     // create the giff
     var options = {
         mode: 'text',
-        pythonPath: '/home/dhantha/anaconda/envs/py36/bin/python',
+        pythonPath: '/home/vagrant/anaconda3/bin/python', // need to change this path 
         pythonOptions: ['-u'],
         scriptPath: './',
         args: [pathToFolder, gifName]
     };
- 
+    
+    // call the python shell
     PythonShell.run('Giff.py', options, function (err, results) {
         if (err) throw err;
-        // results is an array consisting of messages collected during execution 
-        //console.log('results: %j', results);
+
+        
+        // need to work on this sending back logic, it only needs to populate the UI
         var giffImagePath = path.join('./' + pathToFolder + '/' + gifName + '.gif')
         var resolvedPath = path.resolve(giffImagePath);
-        var img = fs.readFileSync(resolvedPath);
+        var img = fs.readFileSync(resolvedPath); // read the giff
         res.writeHead(200, {'Content-Type': 'image/gif' });
         res.end(img, 'binary');
+        
         //res.sendFile(resolvedPath);
         //res.sendFile(resolvedPath,{ 'Content-Type': 'image/gif' }, 200);
     });
@@ -66,6 +70,6 @@ app.post('/api/photo', function(req, res){
     form.parse(req);
 });
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
+app.listen(8888, function () {
+  console.log('Example app listening on port 8888!')
 });
