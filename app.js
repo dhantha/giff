@@ -13,13 +13,13 @@ app.use(express.static('./')); // index.html
 app.post('/api/photo', function(req, res){
     var form = new formidable.IncomingForm();
     form.multiples = true;
-    
-    // need to create the dir dynamically
+
+    // create the dir dynamically
     var pathToFolder = new Date().toISOString();
     var gifName = randomstring.generate();
-    
+
     fs.mkdirSync(pathToFolder,0777);
-    
+
     form.uploadDir = path.join(__dirname, '/' + pathToFolder);
 
     // every time a file has been uploaded successfully,
@@ -32,33 +32,34 @@ app.post('/api/photo', function(req, res){
     form.on('error', function(err) {
         console.log('An error has occured: \n' + err);
     });
-    
+
     // create the giff
     var options = {
         mode: 'text',
-        pythonPath: '/home/vagrant/anaconda3/bin/python', // need to change this path 
+        pythonPath: '/home/vagrant/anaconda3/bin/python', // need to change this path
         pythonOptions: ['-u'],
         scriptPath: './',
         args: [pathToFolder, gifName]
     };
-    
+
     // call the python shell
     PythonShell.run('Giff.py', options, function (err, results) {
         if (err) throw err;
 
-        
         // need to work on this sending back logic, it only needs to populate the UI
+
         var giffImagePath = path.join('./' + pathToFolder + '/' + gifName + '.gif')
         var resolvedPath = path.resolve(giffImagePath);
         var img = fs.readFileSync(resolvedPath); // read the giff
+        console.log("Finish creating the .gif");
         res.writeHead(200, {'Content-Type': 'image/gif' });
         res.end(img, 'binary');
-        
+
         //res.sendFile(resolvedPath);
         //res.sendFile(resolvedPath,{ 'Content-Type': 'image/gif' }, 200);
     });
 
-                                  
+
     form.on('end', function() {
         //res.end('success');
         //var giffImagePath = path.join('./' + pathToFolder + '/' + gifName + '.gif')
