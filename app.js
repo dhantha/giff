@@ -48,12 +48,18 @@ app.post('/api/photo', function(req, res){
 
         // need to work on this sending back logic, it only needs to populate the UI
 
-        var giffImagePath = path.join('./' + pathToFolder + '/' + gifName + '.gif')
-        var resolvedPath = path.resolve(giffImagePath);
-        var img = fs.readFileSync(resolvedPath); // read the giff
+        var giffImagePath = path.join('/' + pathToFolder + '/' + gifName + '.gif')
+        //console.log(giffImagePath)
+
+        //var resolvedPath = path.resolve(giffImagePath);
+        //var img = fs.readFileSync(resolvedPath); // read the giff
         console.log("Finish creating the .gif");
-        res.writeHead(200, {'Content-Type': 'image/gif' });
-        res.end(img, 'binary');
+        //console.log(resolvedPath);
+        //res.writeHead(200, {'Content-Type': 'image/gif' });
+        //res.end(img, 'binary');
+
+        //res.writeHead(200);
+        res.status(200).send(giffImagePath);
 
         //res.sendFile(resolvedPath);
         //res.sendFile(resolvedPath,{ 'Content-Type': 'image/gif' }, 200);
