@@ -14,6 +14,7 @@ app.post('/api/photo', function(req, res){
     var form = new formidable.IncomingForm();
     form.multiples = true;
 
+    //console.log(req);
     // create the dir dynamically
     var pathToFolder = new Date().toISOString();
     var gifName = randomstring.generate();

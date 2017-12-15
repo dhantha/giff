@@ -10,5 +10,6 @@ imagefiles = []
 for file in files:
 	imagefiles.append(imageio.imread(path + '/' + file)) # append each file to a list
 
+exportname = path + '/' + name
 
-imageio.mimsave(path + '/' + name + '.gif', imagefiles) # convert the list into a .gif
+imageio.mimsave(path + '/' + name + '.gif', imagefiles, duration=1) # convert the list into a .gif
