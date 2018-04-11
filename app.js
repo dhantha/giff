@@ -4,6 +4,7 @@ var formidable = require('formidable');
 var fs = require('file-system');
 var randomstring = require("randomstring");
 var PythonShell = require('python-shell');
+var rimraf = require("rimraf");
 
 var app = express();
 
@@ -33,14 +34,16 @@ app.post('/api/photo', function(req, res){
     form.on('error', function(err) {
         console.log('An error has occured: \n' + err);
     });
-
+    var duration = 0.01
     // create the giff
+    console.log(duration)
+
     var options = {
         mode: 'text',
         pythonPath: '/home/vagrant/anaconda3/bin/python', // need to change this path
         pythonOptions: ['-u'],
         scriptPath: './',
-        args: [pathToFolder, gifName]
+        args: [pathToFolder, gifName, duration]
     };
 
     // call the python shell
@@ -64,6 +67,9 @@ app.post('/api/photo', function(req, res){
 
         //res.sendFile(resolvedPath);
         //res.sendFile(resolvedPath,{ 'Content-Type': 'image/gif' }, 200);
+        //rimraf(pathToFolder, function(){
+        //  console.log("deleted the directory");
+        //});
     });
 
 

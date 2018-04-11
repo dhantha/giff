@@ -4,6 +4,8 @@ import sys
 
 path = './' + sys.argv[1]
 name = sys.argv[2]
+duration = sys.argv[3]
+
 files = os.listdir(path) # get the path to the folder
 
 imagefiles = []
@@ -12,4 +14,4 @@ for file in files:
 
 exportname = path + '/' + name
 
-imageio.mimsave(path + '/' + name + '.gif', imagefiles, duration=1) # convert the list into a .gif
+imageio.mimsave(path + '/' + name + '.gif', imagefiles, duration=duration) # convert the list into a .gif
