@@ -5,8 +5,10 @@ var fs = require('file-system');
 var randomstring = require("randomstring");
 var PythonShell = require('python-shell');
 var rimraf = require("rimraf");
+var bodyParser = require("body-parser");
 
 var app = express();
+app.use(bodyParser.json());
 
 app.use(express.static('./')); // index.html
 
@@ -15,7 +17,6 @@ app.post('/api/photo', function(req, res){
     var form = new formidable.IncomingForm();
     form.multiples = true;
 
-    //console.log(req);
     // create the dir dynamically
     var pathToFolder = new Date().toISOString();
     var gifName = randomstring.generate();
@@ -31,12 +32,13 @@ app.post('/api/photo', function(req, res){
     });
 
     // log any errors that occur
+    console.log(req.body);
+
     form.on('error', function(err) {
         console.log('An error has occured: \n' + err);
     });
-    var duration = 0.01
+    var duration = 0.25 // need to set the duration dynamically
     // create the giff
-    console.log(duration)
 
     var options = {
         mode: 'text',
@@ -53,7 +55,6 @@ app.post('/api/photo', function(req, res){
         // need to work on this sending back logic, it only needs to populate the UI
 
         var giffImagePath = path.join('/' + pathToFolder + '/' + gifName + '.gif')
-        //console.log(giffImagePath)
 
         //var resolvedPath = path.resolve(giffImagePath);
         //var img = fs.readFileSync(resolvedPath); // read the giff
