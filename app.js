@@ -6,16 +6,26 @@ var randomstring = require("randomstring");
 var PythonShell = require('python-shell');
 var rimraf = require("rimraf");
 var bodyParser = require("body-parser");
+var util = require('util');
 
 var app = express();
-app.use(bodyParser.json());
 
+app.use(bodyParser.urlencoded({extended : true}));
+app.use(bodyParser.json());
+//var urlencodedParser = bodyParser.urlencoded({extended: false});
 app.use(express.static('./')); // index.html
+
+// global var
+var pythonPath = '/home/vagrant/anaconda3/bin/python';
 
 // API for uploading the Photos
 app.post('/api/photo', function(req, res){
+
+    util.log(util.inspect(req.files));
     var form = new formidable.IncomingForm();
     form.multiples = true;
+
+    //console.log(form);
 
     // create the dir dynamically
     var pathToFolder = new Date().toISOString();
@@ -23,6 +33,7 @@ app.post('/api/photo', function(req, res){
 
     fs.mkdirSync(pathToFolder,0777);
 
+    // upload to the directory
     form.uploadDir = path.join(__dirname, '/' + pathToFolder);
 
     // every time a file has been uploaded successfully,
@@ -31,18 +42,12 @@ app.post('/api/photo', function(req, res){
         fs.rename(file.path, path.join(form.uploadDir, file.name));
     });
 
-    // log any errors that occur
-    console.log(req.body);
 
-    form.on('error', function(err) {
-        console.log('An error has occured: \n' + err);
-    });
     var duration = 0.25 // need to set the duration dynamically
     // create the giff
-
     var options = {
         mode: 'text',
-        pythonPath: '/home/vagrant/anaconda3/bin/python', // need to change this path
+        pythonPath: pythonPath, // need to change this path
         pythonOptions: ['-u'],
         scriptPath: './',
         args: [pathToFolder, gifName, duration]
@@ -53,12 +58,11 @@ app.post('/api/photo', function(req, res){
         if (err) throw err;
 
         // need to work on this sending back logic, it only needs to populate the UI
-
         var giffImagePath = path.join('/' + pathToFolder + '/' + gifName + '.gif')
 
         //var resolvedPath = path.resolve(giffImagePath);
         //var img = fs.readFileSync(resolvedPath); // read the giff
-        console.log("Finish creating the .gif");
+        //console.log("Finish creating the .gif");
         //console.log(resolvedPath);
         //res.writeHead(200, {'Content-Type': 'image/gif' });
         //res.end(img, 'binary');
@@ -79,6 +83,11 @@ app.post('/api/photo', function(req, res){
         //var giffImagePath = path.join('./' + pathToFolder + '/' + gifName + '.gif')
         //var resolvedPath = path.resolve(giffImagePath);
         //res.sendFile(resolvedPath);
+        console.log("on end");
+    });
+
+    form.on('error', function(err) {
+        console.log('An error has occured: \n' + err);
     });
 
     // parse the incoming request containing the form data

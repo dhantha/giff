@@ -19,12 +19,17 @@ $(document).ready(function() {
       $("#status").empty().text("File is uploading...");
 
       console.log(duration);
-      var data = {};
-      data.duration = duration;
+      var UserData = {};
+      UserData.duration = duration;
+      UserData.msg = "This is a test"
+
+      console.log(UserData);
 
       $(this).ajaxSubmit({
-          data : JSON.stringify(data),
-          contentType : 'application/json',
+          type : 'post',
+          data : JSON.stringify(UserData),
+          //headers: {"Content-Type": "application/json"},
+          url : '/api/photo',
           error: function(xhr) {
               status('Error: ' + xhr.status);
           },
