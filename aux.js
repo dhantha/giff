@@ -29,9 +29,9 @@ $(document).ready(function() {
           type : 'post',
           data : JSON.stringify(UserData),
           //headers: {"Content-Type": "application/json"},
-          url : '/api/photo',
+          url : 'http://54.85.31.48:3000/api/photo',
           error: function(xhr) {
-              status('Error: ' + xhr.status);
+              console.log('Error: ' + xhr.status);
           },
           success: function(response) {
               $("#status").empty().text(" ");

@@ -4,7 +4,7 @@ import sys
 
 path = './' + sys.argv[1]
 name = sys.argv[2]
-duration = sys.argv[3]
+duration = float(sys.argv[3])
 
 files = os.listdir(path) # get the path to the folder
 

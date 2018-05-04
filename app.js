@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(express.static('./')); // index.html
 
 // global var
-var pythonPath = '/home/vagrant/anaconda3/bin/python';
+var pythonPath = '~/anaconda2/bin/python';
 
 // API for uploading the Photos
 app.post('/api/photo', function(req, res){
@@ -94,6 +94,6 @@ app.post('/api/photo', function(req, res){
     form.parse(req);
 });
 
-app.listen(8888, function () {
-  console.log('Example app listening on port 8888!')
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!')
 });
