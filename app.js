@@ -45,6 +45,10 @@ app.post('/api/photo', function(req, res){
 
     var duration = 0.25 // need to set the duration dynamically
     // create the giff
+    console.log(pathToFolder);
+    console.log(gifName);
+    console.log(duration);
+    
     var options = {
         mode: 'text',
         pythonPath: pythonPath, // need to change this path
