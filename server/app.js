@@ -9,23 +9,49 @@ const util = require('util');
 const aws = require("aws-sdk");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
+const multiparty = require('multiparty');
 
 var app = express();
+aws.config.loadFromPath("./aws_config.json");
 
+var pythonPath = '~/anaconda2/bin/python';
+
+app.use(express.static('../client/public'));
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
-//var urlencodedParser = bodyParser.urlencoded({extended: false});
 
-// set the public directory
-app.use(express.static('../client/public')); // index.html
 
-// global var
-var pythonPath = '~/anaconda2/bin/python';
+app.post('/upload', function(req, res){
+  var form = new multiparty.Form();
+  form.parse(req.payload, function(err, fields, files){
+    if (err) throw err;
+
+    var s3 = new aws.S3();
+
+    let filedata = fs.readFileSync(files.upload[0].path);
+
+    var params = {
+      Bucket: 'giffimager',
+      Key: key,
+      Body: filedata,
+      ACL: 'public-read'
+    };
+
+    s3.putObject(params, function(perr, pres){
+      if (perr) throw perr
+
+      console.log("Upload was succsess");
+    });
+  });
+});
 
 app.get('/', function(req, res) {
   res.sendFile("../client/public/index.html");
 });
 
+app.get('/test', function(req, res){
+  res.send("URL is working");
+});
 
 // API for uploading the Photos
 app.post('/api/photo', function(req, res){

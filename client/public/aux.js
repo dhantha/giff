@@ -14,6 +14,8 @@ $(document).ready(function() {
     });
 
   // Ajax call to the server
+
+  //arn:aws:s3:::giffimager
   $('#uploadForm').submit(function(e) {
       e.preventDefault();
       $("#status").empty().text("File is uploading...");
@@ -28,7 +30,7 @@ $(document).ready(function() {
           type : 'post',
           //data : JSON.stringify(UserData),
           //headers: {"Content-Type": "application/json"},
-          url : 'http://54.85.31.48:3000/upload',
+          url : 'slapi/photo',
           error: function(xhr) {
               console.log('Error: ' + xhr.status);
           },

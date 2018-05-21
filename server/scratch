@@ -1,0 +1,47 @@
+var urlencodedParser = bodyParser.urlencoded({extended: true});
+
+// global var
+
+
+const s3_endpoint = new aws.Endpoint('http://s3.amazonaws.com/giffimager');
+
+const s3 = new aws.S3({
+  endpoint:s3_endpoint
+});
+
+const upload = multer({
+  storage: multerS3({
+    s3 : s3,
+    bucket: 'giffimager',
+    acl: 'public-read',
+    key: function(req, file, cb) {
+      console.log(file);
+      cb(null, file.originalname)
+    }
+  })
+}).array('upload',100);
+
+
+app.post('/upload', function(req, res){
+  var form = new multiparty.Form();
+  form.parse(req.payload, function(err, fields, files){
+    if (err) throw err;
+
+    var s3 = new aws.S3();
+
+    let filedata = fs.readFileSync(files.upload[0].path);
+
+    var params = {
+      Bucket: 'giffimager',
+      Key: key,
+      Body: filedata,
+      ACL: 'public-read'
+    };
+
+    s3.putObject(params, function(perr, pres){
+      if (perr) throw perr
+
+      console.log("Upload was succsess");
+    });
+  });
+});
