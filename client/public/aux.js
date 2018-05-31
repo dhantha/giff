@@ -15,22 +15,46 @@ $(document).ready(function() {
 
   // Ajax call to the server
 
-  //arn:aws:s3:::giffimager
-  $('#uploadForm').submit(function(e) {
-      e.preventDefault();
+
+  $('#uploadForm').on('submit', function(event){
+    event.preventDefault();
+
+    //var formData = $(this).serializeArray();
+    //console.log(formData);
+
+    $.ajax({
+      url: 'http://ec2-54-85-31-48.compute-1.amazonaws.com:3000/upload',
+      type: 'POST',
+      error: function(xhr){
+        status('Error: ' +  xhr.status)
+      }
+      succsess: function(response){
+        console.log(response);
+      }
+    });
+  });
+
+
+  $('').on('submit', function(event) {
+      event.preventDefault();
       $("#status").empty().text("File is uploading...");
 
-      var UserData = {};
-      UserData.duration = duration;
-      UserData.msg = "This is a test"
-      //http://54.85.31.48:3000/api/photo
-      console.log(UserData);
+      var files = $('[name="userPhoto"]');
+      var filenames = $.trim(files.val())
+      var data =  JSON.stringify(event.target);
 
-      $(this).ajaxSubmit({
+      console.log($(this));
+
+      var form = $(this)[0].files;
+      var data = new FormData(form);
+
+
+      /*
+      $(this).ajax({
           type : 'post',
-          //data : JSON.stringify(UserData),
-          //headers: {"Content-Type": "application/json"},
-          url : 'slapi/photo',
+          url : 'http://ec2-54-85-31-48.compute-1.amazonaws.com:3000/upload',
+          data: data,
+          timeout: 60000,
           error: function(xhr) {
               console.log('Error: ' + xhr.status);
           },
@@ -43,8 +67,9 @@ $(document).ready(function() {
               //console.log("Call the draw canvas");
           }
       });
+      */
       //Very important line, it disable the page refresh.
-  return false;
+      return false;
   });
 
 
