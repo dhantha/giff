@@ -1,0 +1,14 @@
+{
+  "name" : "giffimager",
+  "version" : "1.0"
+
+  "content_security_policy" : "script-src 'self'
+    https://code.jquery.com/jquery-3.3.1.min.js;
+    https://cdnjs.cloudflare.com/ajax/libs/jcanvas/20.1.4/jcanvas.js;
+    https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js;
+    http://malsup.github.com/jquery.form.js;
+    https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css;
+    https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css;
+    object-src 'self'"
+
+}

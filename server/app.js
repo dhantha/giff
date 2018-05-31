@@ -23,25 +23,9 @@ AWS.config.loadFromPath("./aws_config.json");
 var s3 = new AWS.S3({params: {Bucket: 'giffimager'}});
 
 app.post('/upload', function(req, res){
+  console.log("In the method");
   res.send("Succsess");
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // API for uploading the Photos
 app.post('/api/photo', function(req, res){
