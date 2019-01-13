@@ -1,0 +1,32 @@
+{
+  "name": "giff",
+  "version": "1.0.0",
+  "description": "Create giff images online",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhantha/giff.git"
+  },
+  "author": "Dhantha Gunarathna",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dhantha/giff/issues"
+  },
+  "homepage": "https://github.com/dhantha/giff#readme",
+  "dependencies": {
+    "animated_gif": "^1.0.2",
+    "async": "^2.6.1",
+    "express": "^4.16.4",
+    "fs": "0.0.1-security",
+    "get-pixels": "^3.3.2",
+    "gif-encoder": "^0.7.1",
+    "gif.js.optimized": "^1.0.1",
+    "gifencoder": "^1.1.0",
+    "jimp": "^0.5.6",
+    "path": "^0.12.7",
+    "randomstring": "^1.1.5"
+  }
+}
