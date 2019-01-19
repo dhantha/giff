@@ -1,15 +1,15 @@
 const express = require('express');
 const path = require('path');
-const formidable = require('formidable');
-const fs = require('file-system');
+//const formidable = require('formidable');
+const fs = require('fs');
 const randomstring = require("randomstring");
-const PythonShell = require('python-shell');
+//const PythonShell = require('python-shell');
 const bodyParser = require("body-parser");
 const util = require('util');
-const AWS = require("aws-sdk");
-const multer = require("multer");
-const multerS3 = require("multer-s3");
-const multiparty = require('multiparty');
+//const AWS = require("aws-sdk");
+//const multer = require("multer");
+//const multerS3 = require("multer-s3");
+//const multiparty = require('multiparty');
 
 var app = express();
 app.use(express.static('../client/public'));
@@ -19,9 +19,8 @@ app.use(bodyParser.json());
 var pythonPath = '~/anaconda2/bin/python';
 
 // S3
-AWS.config.loadFromPath("./aws_config.json");
-var s3 = new AWS.S3({params: {Bucket: 'giffimager'}});
-
+//AWS.config.loadFromPath("./aws_config.json");
+//
 app.post('/upload', function(req, res){
   console.log("In the method");
   res.send("Succsess");

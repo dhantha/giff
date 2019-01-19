@@ -2,76 +2,95 @@
 <html lang="en">
 
 <head>
+	<meta charset="utf-8"/>
 	<title>Giff</title>
 	<!-- need to link the jquery -->
 
-	<meta name="viewport" content="width = device-width, initial-scale = 1">
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; font-src 'self' data: fonts.gstatic.com;">
+	<meta name="viewport" content="width=device-width, user-scalable=1, initial-scale=1">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self';
+	script-src 'self' 'unsafe-inline' *;
+	style-src 'self' *;
+	font-src 'self' *;
+	img-src 'self' blob: data:;">
 
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-  	
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jcanvas/20.1.4/jcanvas.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="http://malsup.github.com/jquery.form.js"></script>
-  	<script type='text/javascript' src='./aux.js'></script>
-		<script src="./Jquery.knob.js"></script>
 
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jcanvas/20.1.4/jcanvas.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="./styles.css">
+	<script src="http://malsup.github.com/jquery.form.js"></script>
+	<script type='text/javascript' src='./client.js'></script>
+	<script type='text/javascript' src='./gif.js'></script>
+	<script type='text/javascript' src='./gif.worker.js'></script>
+	<script type='text/javascript' src='./Jquery.knob.js'></script>
 
 </head>
 
 <body>
 
 	<div class="container">
-  	<div class="jumbotron">
+  	<div class="jumbotron align-items-center">
     	<h1>Make your own Giff</h1>
-    	<p>Upload the images you want and hit create Giff</p>
+    	<h3>Upload the images you want and hit create Giff</h3>
   	</div>
   </div>
 
 
-    <div class="container">
-        <div class="row">
-            <!-- Top Left -->
-            <!-- Uploader section -->
-            <div class="col-md-6">
-                <p>Upload your images </p>
-								<br>
-                <form id="uploadForm" enctype="multipart/form-data" method="POST">
-                    <input type="file" name="userPhoto"  multiple/>
-                    <input type="submit" value="Create Giff" id="btnSubmit"  class="btn btn-lg btn-primary" >
-                    <span id = "status"></span>
-                </form>
-            </div>
-
-						<div class="col-md-6">
-                <!-- Top Right -->
-                <!-- Giff needs to be populate here -->
-								<a id="download" download>
-    							<img id="drawGiff" height="600" width="600">
-								</a>
-            </div>
-			 </div>
-
-       <div class="row">
-					<div class="col-md-6">
-							<!-- Bottom Left -->
-							<input type="text" class="dial" value="0" data-min="0" data-max="5" data-step="0.1">
-
-							<script>
-							    $(function() {
-							        $(".dial").knob();
-							    });
-							</script>
-
-					</div>
-
-
+  <div class="container">
+      <div id="rowOne" class="row">
+          <!-- Top Left -->
+          <!-- Uploader section -->
           <div class="col-md-6">
-                <!-- Bottom Right -->
-                <!-- MEME -->
+              <h3>Upload your images</h3>
+							<br>
+              <form id="uploadForm" enctype="multipart/form-data" method="POST">
+                  <input type="file" name="userPhoto"  id="uploadPhotos" multiple/>
+                  <input type="submit" value="Create Giff" id="btnSubmit"  class="btn btn-lg btn-primary" >
+                  <span id = "status"></span>
+              </form>
+							<br>
+							<div class="">
+								<h2>Select delay time</h2>
+								<input type="text" class="dial" data-min="0" data-max="5000" value="50" data-cursor="true">
+								<script>
+										$(function() {
+												$(".dial").knob();
+										});
+								</script>
+						</div>
           </div>
-      </div>
+
+					<img class="render" src="">
+
+					<div class="col-md-6">
+              <!-- Top Right -->
+              <!-- Giff needs to be populate here -->
+							<div id="progress">
+								<div id="progressBar"></div>
+							</div>
+
+							<a id="download">
+								<!-- 5:4 aspect ratio-->
+  							<img id="drawGiff" width="480" height="392">
+							</a>
+          </div>
+		 </div>
+
+     <div id="rowTwo" class="row">
+				<div class="col-md-6">
+						<!-- Bottom Left -->
+
+				</div>
+        <div class="col-md-6">
+              <!-- Bottom Right -->
+              <!-- MEME -->
+        </div>
+     </div>
     </div>
 </body>
 </html>
