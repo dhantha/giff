@@ -46,39 +46,41 @@
           <!-- Top Left -->
           <!-- Uploader section -->
           <div class="col-md-6">
-              <h3>Upload your images</h3>
+						<div class="uploadForm">
+              <h2>Upload your images</h2>
 							<br>
               <form id="uploadForm" enctype="multipart/form-data" method="POST">
                   <input type="file" name="userPhoto"  id="uploadPhotos" multiple/>
-                  <input type="submit" value="Create Giff" id="btnSubmit"  class="btn btn-lg btn-primary" >
+                  <input type="submit" value="create Giff" id="btnSubmit"  class="btn btn-lg btn-primary" >
                   <span id = "status"></span>
               </form>
-							<br>
-							<div class="">
-								<h2>Select delay time</h2>
-								<input type="text" class="dial" data-min="0" data-max="5000" value="50" data-cursor="true">
-								<script>
-										$(function() {
-												$(".dial").knob();
-										});
-								</script>
 						</div>
-          </div>
+						<br>
+						<div class="delayTimer">
+							<h2>Select delay time</h2>
+							<input type="text" class="dial" data-min="0" data-max="5000" value="50" data-cursor="true">
+							<script>
+									$(function() {
+											$(".dial").knob();
+									});
+							</script>
+					</div>
+        </div>
 
-					<img class="render" src="">
+				<img class="render" src="">
 
-					<div class="col-md-6">
-              <!-- Top Right -->
-              <!-- Giff needs to be populate here -->
-							<div id="progress">
-								<div id="progressBar"></div>
-							</div>
+				<div class="col-md-6">
+            <!-- Top Right -->
+            <!-- Giff needs to be populate here -->
+						<div id="progress">
+							<div id="progressBar"></div>
+						</div>
 
-							<a id="download">
-								<!-- 5:4 aspect ratio-->
-  							<img id="drawGiff" width="480" height="392">
-							</a>
-          </div>
+						<a id="download">
+							<!-- 5:4 aspect ratio-->
+							<img id="drawGiff" width="480" height="392">
+						</a>
+        </div>
 		 </div>
 
      <div id="rowTwo" class="row">

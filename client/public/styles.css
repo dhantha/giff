@@ -1,10 +1,29 @@
 #progress {
   width: 100%;
   background-color: #ddd;
+  padding: 20px;
 }
 
 #progressBar {
   width: 1%;
   height: 30px;
   background-color: #4CAF50;
+}
+
+.jumbotron{
+  text-align: center;
+}
+
+.upload {
+  display: inline-block;
+  padding: 30px;
+}
+
+#uploadForm{
+  display: inline-block;
+}
+
+.delayTimer {
+  display: inline-block;
+  padding: 30px;
 }
