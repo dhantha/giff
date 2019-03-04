@@ -28,6 +28,8 @@
   padding: 30px;
 }
 
-#display {
-  align : center;
+#drawGiff {
+  display: block;
+ margin-left: auto;
+ margin-right: auto;
 }
