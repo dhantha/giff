@@ -17,7 +17,6 @@ var img = [image1, image2];
 
 gif.pipe(file);
 gif.setQuality(20);
-gif.setDelay(1000);
 gif.writeHeader();
 gif.setRepeat(0);
 gif.setDelay(400);

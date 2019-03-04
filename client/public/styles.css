@@ -27,3 +27,7 @@
   display: inline-block;
   padding: 30px;
 }
+
+#display {
+  align : center;
+}

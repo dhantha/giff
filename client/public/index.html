@@ -9,11 +9,10 @@
 	<meta name="viewport" content="width=device-width, user-scalable=1, initial-scale=1">
 	<meta http-equiv="Content-Security-Policy" content="default-src 'self';
 	script-src 'self' 'unsafe-inline' *;
-	style-src 'self' *;
+	style-src 'self' 'unsafe-inline' *;
 	font-src 'self' *;
-	img-src 'self' blob: data:;">
-
-
+	worker-src blob:;
+	img-src 'self' blob: data: *;">
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
@@ -24,10 +23,12 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="./styles.css">
 	<script src="http://malsup.github.com/jquery.form.js"></script>
-	<script type='text/javascript' src='./client.js'></script>
+	<script type='text/javascript' src='./gifshotClient.js'></script>
+	<script type='text/javascript' src='./gifshot.js'></script>
 	<script type='text/javascript' src='./gif.js'></script>
 	<script type='text/javascript' src='./gif.worker.js'></script>
 	<script type='text/javascript' src='./Jquery.knob.js'></script>
+	<script type='text/javascript' src ='./gifshot.js'></script>
 
 </head>
 
@@ -36,63 +37,116 @@
 	<div class="container">
   	<div class="jumbotron align-items-center">
     	<h1>Make your own Giff</h1>
-    	<h3>Upload the images you want and hit create Giff</h3>
+    	<h3>Upload your images and hit create</h3>
   	</div>
   </div>
 
+	<div class="container">
+		<!-- display the image -->
+		<div class="row">
+			<div class="col" id="display">
+				<a id="download">
+					<!-- 5:4 aspect ratio-->
+					<img id="drawGiff">
+				</a>
+			</div>
+		</div>
 
-  <div class="container">
-      <div id="rowOne" class="row">
-          <!-- Top Left -->
-          <!-- Uploader section -->
-          <div class="col-md-6">
-						<div class="uploadForm">
-              <h2>Upload your images</h2>
-							<br>
-              <form id="uploadForm" enctype="multipart/form-data" method="POST">
-                  <input type="file" name="userPhoto"  id="uploadPhotos" multiple/>
-                  <input type="submit" value="create Giff" id="btnSubmit"  class="btn btn-lg btn-primary" >
-                  <span id = "status"></span>
-              </form>
-						</div>
-						<br>
-						<div class="delayTimer">
-							<h2>Select delay time</h2>
-							<input type="text" class="dial" data-min="0" data-max="5000" value="50" data-cursor="true">
-							<script>
-									$(function() {
-											$(".dial").knob();
-									});
-							</script>
-					</div>
-        </div>
+			<!-- upload button  -->
+		<div class="row">
+			<div class="col">
+				<form id="upload" enctype="multipart/form-data" method="POST">
+						<input type="file" name="userPhoto"  id="uploadPhotos" multiple/>
+				</form>
+			</div>
+		</div>
 
-				<img class="render" src="">
+			<!-- 2 buttons for the create and save -->
+		<div class="row">
+			<div class="col">
+				<input type="submit" value="create Giff" id="btnSubmit"  class="btn btn-lg btn-primary" >
+				<input type="submit" value="Save" id="btnSave"  class="btn btn-lg btn-primary" >
+			</div>
+		</div>
 
-				<div class="col-md-6">
-            <!-- Top Right -->
-            <!-- Giff needs to be populate here -->
-						<div id="progress">
-							<div id="progressBar"></div>
-						</div>
+			<!-- options -->
+		<div class="row">
+			<div class="col">
+				<div class="form-group">
+		      <label for="gifHeight">Height</label>
+		      <div class="input-group">
+		        <input id="gifHeight" id="gifHeight" class="form-control" value="200" size="5" type="number"></input>
+		        <div class="input-group-addon">px</div>
+		      </div>
+		    </div>
 
-						<a id="download">
-							<!-- 5:4 aspect ratio-->
-							<img id="drawGiff" width="480" height="392">
-						</a>
-        </div>
-		 </div>
+				<div class="form-group">
+		      <label for="gifHeight">Width</label>
+		      <div class="input-group">
+		        <input id="gifWidth" id="gifHeight" class="form-control" value="200" size="5" type="number"></input>
+		        <div class="input-group-addon">px</div>
+		      </div>
+		    </div>
 
-     <div id="rowTwo" class="row">
-				<div class="col-md-6">
-						<!-- Bottom Left -->
+				<div class="form-group">
+		      <label for="interval">Interval</label>
+		      <div class="input-group">
+		        <input name="interval" id="interval" class="form-control" value=".1" step=".1" size="5" type="number"></input>
+		        <div class="input-group-addon">secs</div>
+		      </div>
+		    </div>
+		</div>
+		<div class="col">
+			<div class="form-group">
+	      <label for="gifText">GIF Text</label>
+	      <input name="gifText" id="gifText" class="form-control" value="" size="30" placeholder="Add text here..."></input>
+	    </div>
 
-				</div>
-        <div class="col-md-6">
-              <!-- Bottom Right -->
-              <!-- MEME -->
-        </div>
-     </div>
-    </div>
+			<div class="form-group">
+	      <label for="fontSize">Font Size</label>
+	      <div class="input-group">
+	        <input name="fontSize" id="fontSize" class="form-control" value="16" size="5" type="number"></input>
+	        <div class="input-group-addon">px</div>
+	      </div>
+	    </div>
+
+			<div class="form-group">
+	      <label for="fontFamily">Font Family</label>
+	        <select name="fontFamily" id="fontFamily" class="form-control">
+	          <option value="sans-serif">sans-serif</option>
+	          <option value="Arial">Arial</option>
+	          <option value="Calibri">Calibri</option>
+	          <option value="Times New Roman">Times New Roman</option>
+	        </select>
+	    </div>
+		</div>
+
+		<div class="col">
+			<div class="form-group">
+		    <label for="fontColor">Font Color</label>
+		    <input type="color" name="fontColor" id="fontColor" class="form-control" value="#FFFFFF" size="5"></input>
+		  </div>
+
+			<div class="form-group">
+	     <label for="textAlign">Text Align</label>
+	       <select name="textAlign" id="textAlign" class="form-control">
+	         <option value="center">center</option>
+	         <option value="left">left</option>
+	         <option value="right">right</option>
+	       </select>
+	   </div>
+
+		 <div class="form-group">
+	      <label for="textBaseline">Text Baseline</label>
+	        <select name="textBaseline" id="textBaseline" class="form-control">
+	          <option value="bottom">bottom</option>
+	          <option value="center">center</option>
+	          <option value="top">top</option>
+	        </select>
+	    </div>
+		</div>
+
+		</div>
+	</div>
 </body>
 </html>

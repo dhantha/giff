@@ -1,6 +1,5 @@
-to-d# giff
-Create gifs from images 
+# giffImager
 
-# To do
-1. add the call back to python sub call
-2. progress bar (maybe)
+A picture worth 1000 words but multiple pictures worth even more. Turn pictures into cool memes and share with the world.
+
+![alt text](http://url/to/img.png)
