@@ -1,6 +1,4 @@
 $(document).ready(function($){
-  console.log("document is ready");
-
   $('#btnSubmit').on('click', function(e){
     e.preventDefault();
 
@@ -8,8 +6,8 @@ $(document).ready(function($){
 
     var params = {
       files : $('#uploadPhotos')[0].files,
-      height : $("#gifWidth").val(),
-      width : $("#gifHeight").val(),
+      width : $("#gifWidth").val(),
+      height : $("#gifHeight").val(),
       interval : $("#interval").val(),
       gifText : $("#gifText").val(),
       fontSize : $("#fontSize").val(),
@@ -47,6 +45,7 @@ $(document).ready(function($){
       if (!obj.error) {
           var image = obj.image
           $('#drawGiff').attr('src', image);
+          $('#download').attr('download', image);
       }
     });
   };

@@ -27,8 +27,6 @@
 	<script type='text/javascript' src='./gifshot.js'></script>
 	<script type='text/javascript' src='./gif.js'></script>
 	<script type='text/javascript' src='./gif.worker.js'></script>
-	<script type='text/javascript' src='./Jquery.knob.js'></script>
-	<script type='text/javascript' src ='./gifshot.js'></script>
 
 </head>
 
@@ -53,19 +51,14 @@
 
 			<!-- upload button  -->
 		<div class="row">
-			<div class="col">
 				<form id="upload" enctype="multipart/form-data" method="POST">
 						<input type="file" name="userPhoto"  id="uploadPhotos" multiple/>
 				</form>
-			</div>
 		</div>
-
 			<!-- 2 buttons for the create and save -->
 		<div class="row">
-			<div class="col">
-				<input type="submit" value="create Giff" id="btnSubmit"  class="btn btn-lg btn-primary" >
+				<input type="submit" value="Create" id="btnSubmit"  class="btn btn-lg btn-primary" >
 				<input type="submit" value="Save" id="btnSave"  class="btn btn-lg btn-primary" >
-			</div>
 		</div>
 
 			<!-- options -->
@@ -74,7 +67,7 @@
 				<div class="form-group">
 		      <label for="gifHeight">Height</label>
 		      <div class="input-group">
-		        <input id="gifHeight" id="gifHeight" class="form-control" value="200" size="5" type="number"></input>
+		        <input id="gifHeight" id="gifHeight" class="form-control" value="360" size="5" type="number"></input>
 		        <div class="input-group-addon">px</div>
 		      </div>
 		    </div>
@@ -82,7 +75,7 @@
 				<div class="form-group">
 		      <label for="gifHeight">Width</label>
 		      <div class="input-group">
-		        <input id="gifWidth" id="gifHeight" class="form-control" value="200" size="5" type="number"></input>
+		        <input id="gifWidth" id="gifHeight" class="form-control" value="640" size="5" type="number"></input>
 		        <div class="input-group-addon">px</div>
 		      </div>
 		    </div>
@@ -90,7 +83,7 @@
 				<div class="form-group">
 		      <label for="interval">Interval</label>
 		      <div class="input-group">
-		        <input name="interval" id="interval" class="form-control" value=".1" step=".1" size="5" type="number"></input>
+		        <input name="interval" id="interval" class="form-control" value=".5" step=".1" size="5" type="number"></input>
 		        <div class="input-group-addon">secs</div>
 		      </div>
 		    </div>

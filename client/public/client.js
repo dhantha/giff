@@ -4,6 +4,7 @@ $(document).ready(function($){
 
   var delay = 50;
   var width = $('#progressBar')[0].style.width;
+
   $('.dial').knob({
         'release' : function (v) {
           delay = v;
