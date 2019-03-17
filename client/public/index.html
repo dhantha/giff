@@ -13,6 +13,17 @@
 	font-src 'self' *;
 	worker-src blob:;
 	img-src 'self' blob: data: *;">
+	<meta name="description" content="giffImager a open source  tool to create gifs from photos and record from video camera."/>
+	<meta name="author" content="giffImager"/>
+	<meta name="keywords" content="GIF search engine,GIF search engine,animated GIFs,best GIFs,GIF,GIFs,create GIFs,GIF maker">
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-135754541-1"></script>
+	<script>
+   		window.dataLayer = window.dataLayer || [];
+    		function gtag(){dataLayer.push(arguments);}
+    		gtag('js', new Date());
+    		gtag('config', 'UA-135754541-1');
+	</script>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
@@ -29,9 +40,7 @@
 	<script type='text/javascript' src='./gif.worker.js'></script>
 
 </head>
-
 <body>
-
 	<div class="container">
   	<div class="jumbotron align-items-center">
     	<h1>Make your own Giff</h1>
@@ -43,7 +52,7 @@
 		<!-- display the image -->
 		<div class="row">
 			<div class="col" id="display">
-				<a id="download">
+				<a id="download" download>
 					<img id="drawGiff">
 				</a>
 			</div>
@@ -56,7 +65,7 @@
 				</form>
 		</div>
 			<!-- 2 buttons for the create and save -->
-		<div class="row">
+		<div class="row" id="button">
 				<input type="submit" value="Create" id="btnSubmit"  class="btn btn-lg btn-primary" >
 				<input type="submit" value="Save" id="btnSave"  class="btn btn-lg btn-primary" >
 		</div>

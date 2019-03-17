@@ -19,15 +19,19 @@
   padding: 30px;
 }
 
+#upload{
+  margin: 0 auto;
+}
+
 #drawGiff {
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
-#btnSubmit, #btnSave  {
-  margin-right: 5px;
-  margin-top: 5px;
-  display: inline-block;
+#button {
+  display: block;
+  align-items: center;
   text-align: center;
+  margin-top: 5px;
 }
