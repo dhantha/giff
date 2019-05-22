@@ -2,28 +2,46 @@ $(document).ready(function($){
   $('#btnSubmit').on('click', function(e){
     e.preventDefault();
 
-    var input = $('#uploadPhotos')[0].files;
+    // select the mode
+    console.log($('#mode').val());
 
-    var params = {
-      files : $('#uploadPhotos')[0].files,
-      width : $("#gifWidth").val(),
-      height : $("#gifHeight").val(),
-      interval : $("#interval").val(),
-      gifText : $("#gifText").val(),
-      fontSize : $("#fontSize").val(),
-      fontFamily : $("#fontFamily").val(),
-      fontColor : $("#fontColor").val(),
-      textAlign : $("#textAlign").val(),
-      textBaseline : $("#textBaseline").val()
+    if($('#mode').val() == 'Photos'){
+      var input = $('#uploadPhotos')[0].files;
+      var params = {
+        files : $('#uploadPhotos')[0].files,
+        width : $("#gifWidth").val(),
+        height : $("#gifHeight").val(),
+        interval : $("#interval").val(),
+        gifText : $("#gifText").val(),
+        fontSize : $("#fontSize").val(),
+        fontFamily : $("#fontFamily").val(),
+        fontColor : $("#fontColor").val(),
+        textAlign : $("#textAlign").val(),
+        textBaseline : $("#textBaseline").val()
+      }
+      getValidFileList(params,createPhotoGiff);
     }
-
-    getValidFileList(params,createGiff);
-
+    else if($('#mode').val() == 'Webcam'){
+      var params = {
+        gifWidth: 200,
+        gifHeight: 200,
+        interval: 0.1,
+        numFrames: 10,
+        frameDuration: 1,
+        fontWeight: 'normal',
+        fontSize: '16px',
+        fontFamily: 'sans-serif',
+        fontColor: '#ffffff',
+        textAlign: 'center',
+        textBaseline: 'bottom',
+        sampleInterval: 10,
+        numWorkers: 2
+      }
+      createWebcamGiff(params);
+    }
   });
 
-  function createGiff(params){
-    console.log(params);
-
+  function createPhotoGiff(params){
     gifshot.createGIF({
       gifWidth: params.width || 400,
       gifHeight: params.height || 400,
@@ -48,6 +66,17 @@ $(document).ready(function($){
           $('#download').attr('download', image);
       }
     });
+  };
+
+  function createWebcamGiff(params){
+    gifshot.createGIF(params,
+      function(obj){
+        if(!obj.error){
+          var image = obj.image;
+          $('#drawGiff').attr('src', image);
+          $('#download').attr('download', image);
+        }
+      });
   };
 
   function getValidFileList(params, callback){

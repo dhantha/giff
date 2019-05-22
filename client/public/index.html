@@ -15,7 +15,7 @@
 	img-src 'self' blob: data: *;">
 	<meta name="description" content="giffImager a open source  tool to create gifs from photos and record from video camera."/>
 	<meta name="author" content="giffImager"/>
-	<meta name="keywords" content="GIF search engine,GIF search engine,animated GIFs,best GIFs,GIF,GIFs,create GIFs,GIF maker">
+	<meta name="keywords" content="GIF search engine,animated GIFs,best GIFs,GIF,GIFs,create GIFs,GIF maker">
 
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-135754541-1"></script>
 	<script>
@@ -71,8 +71,18 @@
 		</div>
 
 			<!-- options -->
+
+
 		<div class="row">
 			<div class="col">
+				<div class="form-group">
+		     <label for="mode">Mode</label>
+		       <select name="mode" id="mode" class="form-control">
+		         <option value="Photos">Photos</option>
+		         <option value="Webcam">Webcam</option>
+		       </select>
+		   </div>
+
 				<div class="form-group">
 		      <label for="gifHeight">Height</label>
 		      <div class="input-group">
