@@ -42,6 +42,7 @@ $(document).ready(function($){
   });
 
   function createPhotoGiff(params){
+    console.log(params.fontSize)
     gifshot.createGIF({
       gifWidth: params.width || 400,
       gifHeight: params.height || 400,
@@ -52,7 +53,7 @@ $(document).ready(function($){
       frameDuration: 1,
       text: params.gifText,
       fontWeight: 'normal',
-      fontSize: params.fontSize || '16px',
+      fontSize: params.fontSize + 'px' || '16px',
       fontFamily: params.fontFamily || 'sans-serif',
       fontColor: params.fontColor || '#ffffff',
       textAlign: params.textAlign || 'center',
