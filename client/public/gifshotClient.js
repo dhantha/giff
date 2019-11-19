@@ -3,8 +3,6 @@ $(document).ready(function($){
     e.preventDefault();
 
     // select the mode
-    console.log($('#mode').val());
-
     if($('#mode').val() == 'Photos'){
       var input = $('#uploadPhotos')[0].files;
       var params = {
@@ -41,8 +39,8 @@ $(document).ready(function($){
     }
   });
 
+  // callback function to create gifs
   function createPhotoGiff(params){
-    console.log(params.fontSize)
     gifshot.createGIF({
       gifWidth: params.width || 400,
       gifHeight: params.height || 400,
